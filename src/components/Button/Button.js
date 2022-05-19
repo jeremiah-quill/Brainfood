@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const Button = ({ onClick, text }) => {
+const Button = ({ onClick, text, uniqueClassNames = "" }) => {
   return (
-    <button onClick={onClick} className="border border-black m-auto p-1 rounded">
+    <button
+      onClick={onClick}
+      className={`m-auto p-2 rounded hover:brightness-125  ${uniqueClassNames}`}>
       {text}
     </button>
   );

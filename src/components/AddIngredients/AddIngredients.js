@@ -1,27 +1,93 @@
-import React from 'react';
-import AddIngredientForm from '../AddIngredientForm';
-import IngredientContainer from '../IngredientContainer';
-import Button from '../Button';
-import { useIngredientsContext } from '../../contexts/IngredientsContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import AddIngredientForm from "../AddIngredientForm";
+import IngredientContainer from "../IngredientContainer";
+import Button from "../Button";
+import { useIngredientsContext } from "../../contexts/IngredientsContext";
+import { useNavigate } from "react-router-dom";
 
 const AddIngredients = () => {
-  const { ingredients } = useIngredientsContext();
+  const [recipes, setRecipes] = useState(null);
+
+  const { ingredients, removeAllIngredients } = useIngredientsContext();
 
   const navigate = useNavigate();
 
-  function handleSearchRecipes() {
-    const ingredientNames = ingredients.map((el) => el.name);
-    // TODO: API call to openAI to ask for recipe suggestions based on ingredientNames
+  async function suggestRecipesBasedOnIngredients() {
+    //* transform ingredient names into a format that we can inject into the openai prompt
+    const formattedIngredients = ingredients
+      .map((ingredient) => `${ingredient.name}\n`)
+      .reduce((string, el) => string + el, "");
 
-    navigate('/choose-recipe');
+    const promptTemplate = `List three recipe names that each includes all of the following ingredients:\n\nIngredients:\n${formattedIngredients}\nRecipes: `;
+
+    const data = {
+      prompt: promptTemplate,
+      temperature: 0.3,
+      max_tokens: 250,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    };
+
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.REACT_APP_OPENAI_SECRET}`,
+    };
+
+    axios
+      .post(
+        "https://api.openai.com/v1/engines/text-davinci-002/completions",
+        JSON.stringify(data),
+        {
+          headers,
+        }
+      )
+      .then((response) => {
+        let answerData = response.data.choices[0];
+        let str = answerData.text;
+        let regex = /(?<=\. )(.*[a-zA-Z])/g;
+        const recipes = str.match(regex);
+        // * Set recipes in state, which triggers a useEffect that navigates us to the next page
+        setRecipes(recipes);
+      })
+      .catch((err) => {
+        // TODO: alert user that there was an error
+        console.log(err);
+      });
   }
+
+  function handleSearchRecipes() {
+    if (ingredients.length > 0) {
+      suggestRecipesBasedOnIngredients();
+    } else {
+      // TODO: alert user that they need to add ingredients
+      alert("please add ingredients");
+    }
+  }
+
+  function handleClearIngredients() {
+    removeAllIngredients();
+  }
+
+  useEffect(() => {
+    if (recipes !== null) {
+      navigate("/choose-recipe", { state: { recipes } });
+    }
+  }, [navigate, recipes]);
 
   return (
     <div className="flex flex-col gap-5 max-w-md m-auto">
       <AddIngredientForm />
       <IngredientContainer />
-      <Button onClick={handleSearchRecipes} text={'Suggest Recipes'} />
+      <div className="flex gap-5">
+        <Button onClick={handleClearIngredients} uniqueClassNames="bg-red-300" text="Clear All" />
+        <Button
+          onClick={handleSearchRecipes}
+          uniqueClassNames="bg-green-300"
+          text={"Suggest Recipes"}
+        />
+      </div>
     </div>
   );
 };
