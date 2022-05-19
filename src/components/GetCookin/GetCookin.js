@@ -16,7 +16,15 @@ const GetCookin = () => {
     );
   }
 
-  return <div>{location.state.recipe}</div>;
+  console.log(location.state);
+
+  return (
+    <ol className="list-decimal max-w-screen-sm">
+      {location.state.map((step, idx) => (
+        <li key={idx}>{step}</li>
+      ))}
+    </ol>
+  );
 };
 
 export default GetCookin;

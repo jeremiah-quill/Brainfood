@@ -1,8 +1,8 @@
-import CatchAsCatchCan from './components/CatchAsCatchCan';
+import CatchAsCatchCan from "./components/CatchAsCatchCan";
 
 function App() {
   return (
-    <div className="App h-full w-full flex justify-center items-center">
+    <div className="App h-full flex justify-center items-center">
       <CatchAsCatchCan />
     </div>
   );

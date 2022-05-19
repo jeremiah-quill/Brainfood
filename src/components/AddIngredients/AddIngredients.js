@@ -44,8 +44,11 @@ const AddIngredients = () => {
         }
       )
       .then((response) => {
+        console.log(response.data);
         let answerData = response.data.choices[0];
         let str = answerData.text;
+
+        console.log(str);
         let regex = /(?<=\. )(.*[a-zA-Z])/g;
         const recipes = str.match(regex);
         // * Set recipes in state, which triggers a useEffect that navigates us to the next page
@@ -72,7 +75,7 @@ const AddIngredients = () => {
 
   useEffect(() => {
     if (recipes !== null) {
-      navigate("/choose-recipe", { state: { recipes } });
+      navigate("/choose-recipe", { state: recipes });
     }
   }, [navigate, recipes]);
 
