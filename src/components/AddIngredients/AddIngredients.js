@@ -13,6 +13,7 @@ const AddIngredients = () => {
   function handleSearchRecipes() {
     const ingredientNames = ingredients.map((el) => el.name);
     // TODO: API call to openAI to ask for recipe suggestions based on ingredientNames
+
     navigate('/choose-recipe');
   }
 
