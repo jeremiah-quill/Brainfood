@@ -6,7 +6,7 @@ const ChooseRecipe = () => {
   const navigate = useNavigate();
 
   function handleChooseRecipe() {
-    console.log('recipe');
+    // TODO: API call to openAI to ask for instructions on how to cook a certain recipe
     navigate('/get-cookin');
   }
 
