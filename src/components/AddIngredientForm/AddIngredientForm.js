@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useIngredientsContext } from '../../contexts/IngredientsContext';
 
 const AddIngredientForm = () => {
