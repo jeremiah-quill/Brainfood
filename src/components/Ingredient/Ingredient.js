@@ -1,6 +1,6 @@
-import React from 'react';
-import { useIngredientsContext } from '../../contexts/IngredientsContext';
-import { MdClose } from 'react-icons/md';
+import React from "react";
+import { useIngredientsContext } from "../../contexts/IngredientsContext";
+import { MdClose } from "react-icons/md";
 
 const Ingredient = ({ ingredient }) => {
   const { removeIngredient } = useIngredientsContext();
@@ -10,7 +10,7 @@ const Ingredient = ({ ingredient }) => {
   }
 
   return (
-    <li className="p-1 rounded flex items-center gap-2 bg-gray-300">
+    <li className="py-1 px-2 rounded flex items-center gap-2 bg-gray-400">
       <div>
         <h2 className="align-text-bottom inline-block">{ingredient.name}</h2>
       </div>
