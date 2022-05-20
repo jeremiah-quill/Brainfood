@@ -27,11 +27,11 @@ const InfoModal = ({ closeModal }) => {
                     This app accesses GPT-3 through a free API key, meaning uses are limited. Please
                     use responsibly!
                   </li>
-                  <li>If you notice anything funky, please contact me @jcq5010@gmail.com.</li>
                   <li>
                     Please only submit actual ingredients into the app. The AI will not respond
                     correctly if inputs are not in the right context.
                   </li>
+                  <li>If you notice anything funky, please contact me here: jcq5010@gmail.com.</li>
                 </ol>
               </div>
               <br></br>
