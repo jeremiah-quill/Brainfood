@@ -82,7 +82,7 @@ const AddIngredients = () => {
   }, [navigate, recipes]);
 
   return (
-    <div className="flex flex-col gap-5 max-w-md m-auto bg-gray-200 p-10 rounded">
+    <div className="flex flex-col gap-5 max-w-md bg-gray-200 p-10 rounded">
       <AddIngredientForm />
       <IngredientContainer />
       <div className="flex justify-between w-full">
