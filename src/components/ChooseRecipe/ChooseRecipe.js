@@ -81,17 +81,23 @@ const ChooseRecipe = () => {
   console.log(location.state);
 
   return (
-    <ul className="flex flex-col gap-2">
-      {location.state.map((recipe, idx) => (
-        <li key={idx}>
-          <Button
-            onClick={handleChooseRecipe}
-            uniqueClassNames="bg-gray-300 hover:brightness-110"
-            text={recipe}
-          />
-        </li>
-      ))}
-    </ul>
+    <div className="bg-gray-200 p-10 rounded">
+      <h2 className="mb-20 max-w-lg">
+        Our AI Chef was kind enough to come up with 3 recipes that include your ingredients. Choose
+        from the suggestions below and our AI will generate a full recipe for you to follow.
+      </h2>
+      <ul className="flex flex-col gap-5 items-center">
+        {location.state.map((recipe, idx) => (
+          <li key={idx}>
+            <Button
+              onClick={handleChooseRecipe}
+              uniqueClassNames="bg-gray-300 hover:brightness-110"
+              text={recipe}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
