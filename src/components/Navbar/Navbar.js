@@ -1,6 +1,6 @@
 import React from "react";
 import { FaLightbulb } from "react-icons/fa";
-import { BsShareFill } from "react-icons/bs";
+import { BsShareFill, BsQuestionCircle } from "react-icons/bs";
 
 const Navbar = () => {
   return (
@@ -12,10 +12,14 @@ const Navbar = () => {
       <div className="flex gap-3">
         <button
           onClick={() => console.log("clicked about")}
-          className="border-2 border-black font-bold px-2 rounded-full">
-          ?
+          className="hover:scale-105"
+          style={{ transition: "all .2s ease" }}>
+          <BsQuestionCircle size="1.75rem" />
         </button>
-        <button onClick={() => console.log("clicked social")}>
+        <button
+          onClick={() => console.log("clicked social")}
+          className="hover:scale-105"
+          style={{ transition: "all .2s ease" }}>
           <BsShareFill size="1.5rem" />
         </button>
       </div>
