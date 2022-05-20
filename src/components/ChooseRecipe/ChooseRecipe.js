@@ -51,7 +51,8 @@ const ChooseRecipe = () => {
       })
       .catch((err) => {
         // TODO: alert user that there was an error
-        alert("an error occured");
+        alert("Sorry!  Something went wrong.");
+        stopLoader();
       });
   }
 

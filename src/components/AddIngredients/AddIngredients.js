@@ -56,7 +56,8 @@ const AddIngredients = () => {
       })
       .catch((err) => {
         // TODO: alert user that there was an error
-        alert("there was an error");
+        alert("Sorry!  Something went wrong.");
+        stopLoader();
       });
   }
 

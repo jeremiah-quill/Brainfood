@@ -19,8 +19,6 @@ const GetCookin = () => {
     );
   }
 
-  console.log(location.state);
-
   return (
     <>
       <div className="bg-gray-200 p-10 rounded">
