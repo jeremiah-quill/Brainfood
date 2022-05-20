@@ -1,14 +1,16 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import AddIngredients from '../AddIngredients';
-import ChooseRecipe from '../ChooseRecipe';
-import GetCookin from '../GetCookin';
-import About from '../About';
-import { IngredientsProvider } from '../../contexts/IngredientsContext';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import AddIngredients from "../AddIngredients";
+import ChooseRecipe from "../ChooseRecipe";
+import GetCookin from "../GetCookin";
+import About from "../About";
+import Navbar from "../Navbar";
+import { IngredientsProvider } from "../../contexts/IngredientsContext";
 
 const CatchAsCatchCan = () => {
   return (
     <>
+      <Navbar />
       <IngredientsProvider>
         <Routes>
           <Route path="/" element={<AddIngredients />} />

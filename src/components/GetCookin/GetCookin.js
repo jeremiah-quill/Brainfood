@@ -19,7 +19,7 @@ const GetCookin = () => {
   console.log(location.state);
 
   return (
-    <ol className="list-decimal max-w-screen-sm">
+    <ol className="list-decimal list-inside w-10/12 max-w-screen-md">
       {location.state.map((step, idx) => (
         <li key={idx}>{step}</li>
       ))}
