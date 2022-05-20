@@ -3,15 +3,19 @@ import axios from "axios";
 import Button from "../Button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useIngredientsContext } from "../../contexts/IngredientsContext";
+import useLoader from "../../hooks/useLoader";
 
 const ChooseRecipe = () => {
   const [instructions, setInstructions] = useState(null);
   const { chooseRecipeName } = useIngredientsContext();
+  const [isLoading, startLoader, stopLoader] = useLoader();
+
   const navigate = useNavigate();
   const location = useLocation();
 
   function handleChooseRecipe(recipeName) {
     chooseRecipeName(recipeName);
+    startLoader();
 
     const promptTemplate = `Write the instructions for the recipe for ${recipeName}:\n\nInstructions:`;
 
@@ -38,25 +42,22 @@ const ChooseRecipe = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
         let answerData = response.data.choices[0];
         let str = answerData.text;
-        console.log(str);
         let regex = /(?<=\. )(.*[a-zA-Z])/g;
-        const instructions = str.match(regex);
+        const AiInstructions = str.match(regex);
         // * Set recipe in state, which triggers a useEffect that navigates us to the next page
-        setInstructions(instructions);
+        setInstructions(AiInstructions);
       })
       .catch((err) => {
         // TODO: alert user that there was an error
         alert("an error occured");
       });
-
-    // setRecipe("get cookin good lookin!");
   }
 
   useEffect(() => {
     if (instructions !== null) {
+      stopLoader();
       navigate("/get-cookin", { state: instructions });
     }
   }, [navigate, instructions]);
@@ -72,8 +73,6 @@ const ChooseRecipe = () => {
       </h1>
     );
   }
-
-  console.log(location.state);
 
   return (
     <div className="bg-gray-200 p-10 rounded">
@@ -92,6 +91,7 @@ const ChooseRecipe = () => {
           </li>
         ))}
       </ul>
+      {isLoading}
     </div>
   );
 };
