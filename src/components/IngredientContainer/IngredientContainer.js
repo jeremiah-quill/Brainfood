@@ -7,7 +7,7 @@ const IngredientContainer = () => {
 
   return (
     <ul
-      style={{ minHeight: "55px" }}
+      style={{ minHeight: "55px", width: "280px" }}
       className="border-black border p-2 flex flex-wrap gap-2 rounded">
       {ingredients.map((ingredient) => (
         <Ingredient key={ingredient.id} ingredient={ingredient} />
