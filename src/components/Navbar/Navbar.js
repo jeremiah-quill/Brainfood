@@ -12,14 +12,12 @@ const Navbar = () => {
       <div className="flex gap-3">
         <button
           onClick={() => console.log("clicked about")}
-          className="hover:scale-105"
-          style={{ transition: "all .2s ease" }}>
+          className="hover:scale-110 transition-all">
           <BsQuestionCircle size="1.75rem" />
         </button>
         <button
           onClick={() => console.log("clicked social")}
-          className="hover:scale-105"
-          style={{ transition: "all .2s ease" }}>
+          className="hover:scale-110 transition-all">
           <BsShareFill size="1.5rem" />
         </button>
       </div>

@@ -14,7 +14,9 @@ const Ingredient = ({ ingredient }) => {
       <div>
         <h2 className="align-text-bottom inline-block">{ingredient.name}</h2>
       </div>
-      <button onClick={handleRemoveIngredient}>
+      <button
+        className="hover:scale-125 hover:bg-red-300 rounded transition-all"
+        onClick={handleRemoveIngredient}>
         <MdClose />
       </button>
     </li>
