@@ -88,12 +88,12 @@ const AddIngredients = () => {
       <div className="flex justify-between w-full">
         <Button
           onClick={handleClearIngredients}
-          uniqueClassNames="bg-red-300 m-0"
+          uniqueClassNames="bg-red-400 m-0 transition-all"
           text="Clear All"
         />
         <Button
           onClick={handleSearchRecipes}
-          uniqueClassNames="bg-green-300 m-0"
+          uniqueClassNames="bg-green-400 m-0 transition-all"
           text={"Suggest Recipes"}
         />
       </div>

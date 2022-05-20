@@ -1,6 +1,15 @@
-const SocialsBar = () => {
+import React, { useRef } from "react";
+import { useClickOutside } from "../../hooks/useClickOutside";
+
+const SocialsBar = ({ closeSocials, ignoreRef }) => {
+  const ref = useRef();
+
+  useClickOutside(ref, ignoreRef, () => {
+    closeSocials();
+  });
+
   return (
-    <div className="absolute top-14 bg-gray-200 rounded right-5">
+    <div ref={ref} className="absolute top-14 bg-gray-200 rounded right-5">
       <ul className="flex rounded">
         <li className="cursor-pointer">
           <a
