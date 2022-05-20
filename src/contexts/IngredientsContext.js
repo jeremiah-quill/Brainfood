@@ -6,11 +6,8 @@ export const IngredientsContext = createContext();
 export const useIngredientsContext = () => useContext(IngredientsContext);
 
 export const IngredientsProvider = ({ children }) => {
-  const [ingredients, setIngredients] = useState([
-    { name: "item 1", id: 1 },
-    { name: "item 2", id: 2 },
-    { name: "item 3", id: 3 },
-  ]);
+  const [ingredients, setIngredients] = useState([]);
+  const [chosenRecipeName, setChosenRecipeName] = useState(null);
 
   function addIngredient(newIngredient) {
     const ingredient = {
@@ -29,9 +26,20 @@ export const IngredientsProvider = ({ children }) => {
     setIngredients([]);
   }
 
+  function chooseRecipeName(name) {
+    setChosenRecipeName(name);
+  }
+
   return (
     <IngredientsContext.Provider
-      value={{ ingredients, addIngredient, removeIngredient, removeAllIngredients }}>
+      value={{
+        ingredients,
+        addIngredient,
+        removeIngredient,
+        removeAllIngredients,
+        chooseRecipeName,
+        chosenRecipeName,
+      }}>
       {children}
     </IngredientsContext.Provider>
   );

@@ -1,8 +1,11 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useIngredientsContext } from "../../contexts/IngredientsContext";
 
 const GetCookin = () => {
   const location = useLocation();
+
+  const { ingredients, chosenRecipeName } = useIngredientsContext();
 
   if (location.state === null) {
     return (
@@ -19,11 +22,20 @@ const GetCookin = () => {
   console.log(location.state);
 
   return (
-    <ol className="list-decimal list-inside w-10/12 max-w-screen-md">
-      {location.state.map((step, idx) => (
-        <li key={idx}>{step}</li>
-      ))}
-    </ol>
+    <div className="bg-gray-200 p-10 rounded">
+      <h2 className="text-4xl mb-10 text-center">{chosenRecipeName}</h2>
+      <h3 className="text-xl">Your Ingredients</h3>
+      <ul className="mb-10">
+        {ingredients.map((ingredient) => (
+          <li key={ingredient.id}>{ingredient.name}</li>
+        ))}
+      </ul>
+      <ol className="list-decimal list-inside w-10/12 max-w-screen-md">
+        {location.state.map((step, idx) => (
+          <li key={idx}>{step}</li>
+        ))}
+      </ol>
+    </div>
   );
 };
 
