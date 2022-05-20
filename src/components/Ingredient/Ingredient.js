@@ -10,7 +10,7 @@ const Ingredient = ({ ingredient }) => {
   }
 
   return (
-    <li className="py-1 px-2 rounded flex items-center gap-2 bg-gray-400">
+    <li className="py-1 px-2 rounded flex items-center gap-2 bg-gray-500 text-white">
       <div>
         <h2 className="align-text-bottom inline-block">{ingredient.name}</h2>
       </div>
