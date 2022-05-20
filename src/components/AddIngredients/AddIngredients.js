@@ -5,11 +5,14 @@ import IngredientContainer from "../IngredientContainer";
 import Button from "../Button";
 import { useIngredientsContext } from "../../contexts/IngredientsContext";
 import { useNavigate } from "react-router-dom";
+import useLoader from "../../hooks/useLoader";
 
 const AddIngredients = () => {
   const [recipes, setRecipes] = useState(null);
 
   const { ingredients, removeAllIngredients } = useIngredientsContext();
+
+  const [isLoading, startLoader, stopLoader] = useLoader();
 
   const navigate = useNavigate();
 
@@ -44,15 +47,12 @@ const AddIngredients = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
         let answerData = response.data.choices[0];
         let str = answerData.text;
-
-        console.log(str);
         let regex = /(?<=\. )(.*[a-zA-Z])/g;
-        const recipes = str.match(regex);
+        const suggestedRecipes = str.match(regex);
         // * Set recipes in state, which triggers a useEffect that navigates us to the next page
-        setRecipes(recipes);
+        setRecipes(suggestedRecipes);
       })
       .catch((err) => {
         // TODO: alert user that there was an error
@@ -62,6 +62,7 @@ const AddIngredients = () => {
 
   function handleSearchRecipes() {
     if (ingredients.length > 0) {
+      startLoader();
       suggestRecipesBasedOnIngredients();
     } else {
       // TODO: alert user that they need to add ingredients
@@ -75,6 +76,7 @@ const AddIngredients = () => {
 
   useEffect(() => {
     if (recipes !== null) {
+      stopLoader();
       navigate("/choose-recipe", { state: recipes });
     }
   }, [navigate, recipes]);
@@ -95,6 +97,7 @@ const AddIngredients = () => {
           text={"Suggest Recipes"}
         />
       </div>
+      {isLoading}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { BsShareFill, BsQuestionCircle } from "react-icons/bs";
 
 const Navbar = () => {
   return (
-    <div className="fixed z-10 top-0 flex items-center justify-between w-full p-4 max-w-5xl">
+    <div className="fixed z-20 top-0 flex items-center justify-between w-full p-4 max-w-5xl">
       <div className="flex items-center gap-3">
         <FaLightbulb color="#D4AF37" size="1.5rem" />
         <h1 className="text-green-600 font-thin text-3xl">AI Chef</h1>
