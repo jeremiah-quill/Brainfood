@@ -83,11 +83,15 @@ const AddIngredients = () => {
     <div className="flex flex-col gap-5 max-w-md m-auto">
       <AddIngredientForm />
       <IngredientContainer />
-      <div className="flex gap-5">
-        <Button onClick={handleClearIngredients} uniqueClassNames="bg-red-300" text="Clear All" />
+      <div className="flex justify-between w-full">
+        <Button
+          onClick={handleClearIngredients}
+          uniqueClassNames="bg-red-300 m-0"
+          text="Clear All"
+        />
         <Button
           onClick={handleSearchRecipes}
-          uniqueClassNames="bg-green-300"
+          uniqueClassNames="bg-green-300 m-0"
           text={"Suggest Recipes"}
         />
       </div>
