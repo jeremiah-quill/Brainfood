@@ -21,7 +21,7 @@ const GetCookin = () => {
 
   return (
     <>
-      <div className="bg-gray-200 p-10 rounded">
+      <div className="bg-gray-200 p-10 rounded max-w-xl m-auto">
         <h2 className="text-4xl mb-10 text-center">{chosenRecipeName}</h2>
         <h3 className="text-xl">Your Ingredients</h3>
         <ul className="mb-10">
@@ -29,13 +29,15 @@ const GetCookin = () => {
             <li key={ingredient.id}>{ingredient.name}</li>
           ))}
         </ul>
-        <ol className="list-decimal list-inside w-10/12 max-w-screen-md">
+        <ol className="list-decimal list-inside">
           {location.state.map((step, idx) => (
             <li key={idx}>{step}</li>
           ))}
         </ol>
       </div>
-      <Link className="p-2 mt-5 bg-yellow-500 rounded hover:brightness-125 transition-all" to="/">
+      <Link
+        className="p-2 m-auto mt-5 bg-yellow-500 rounded hover:brightness-125 transition-all block w-fit"
+        to="/">
         Start Over
       </Link>
     </>

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { BsShareFill, BsQuestionCircle } from "react-icons/bs";
 import SocialsBar from "./SocialsBar";
 import InfoModal from "../InfoModal";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
@@ -22,11 +23,11 @@ const Navbar = () => {
   const ref = useRef();
 
   return (
-    <div className="fixed z-20 top-0 flex items-center justify-between w-full p-4 max-w-5xl">
-      <div className="flex items-center gap-3">
+    <div className="absolute z-20 top-0 flex items-center justify-between w-full p-4 inset-x-0 max-w-5xl m-auto">
+      <Link to="/" className="flex items-center gap-3">
         <img src="./ai_chef_logo_square_white.png" style={{ width: "2rem" }} className="" />
-        <h1 className="text-green-600 font-bold text-3xl">AI Chef</h1>
-      </div>
+        <h1 className="text-green-600 font-bold text-3xl">Brainfood</h1>
+      </Link>
       <div className="flex gap-3">
         <button onClick={handleToggleInfo} className="hover:scale-110 transition-all">
           <BsQuestionCircle size="1.75rem" />

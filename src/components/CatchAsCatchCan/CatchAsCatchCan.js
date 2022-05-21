@@ -11,7 +11,11 @@ const CatchAsCatchCan = () => {
   return (
     <>
       <Navbar />
-      <img src="./ai_chef_logo_square_white.png" className="w-20 sm:w-40 relative bottom-20" />
+      <img
+        alt="logo"
+        src="./ai_chef_logo_square_white.png"
+        className="m-auto w-40 relative bottom-20 z-10"
+      />
       <IngredientsProvider>
         <Routes>
           <Route path="/" element={<AddIngredients />} />

@@ -3,7 +3,7 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div className="flex flex-col items-center justify-center fixed inset-0 z-10 bg-white">
+    <div className="flex flex-col items-center justify-center fixed inset-0 z-5 bg-white">
       {/* <FaLightbulb color="#D4AF37" size="5rem" /> */}
       <svg
         role="status"

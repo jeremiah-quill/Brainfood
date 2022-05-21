@@ -6,9 +6,7 @@ const IngredientContainer = () => {
   const { ingredients } = useIngredientsContext();
 
   return (
-    <ul
-      style={{ minHeight: "55px", width: "300px" }}
-      className="p-2 flex flex-wrap gap-2 rounded justify-center">
+    <ul className="p-2 flex flex-wrap gap-2 rounded justify-center w-full min-h-[55px]">
       {ingredients.map((ingredient) => (
         <Ingredient key={ingredient.id} ingredient={ingredient} />
       ))}
