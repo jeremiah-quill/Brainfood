@@ -86,7 +86,7 @@ const AddIngredients = () => {
       stopLoader();
       navigate("/choose-recipe", { state: recipes });
     }
-  }, [navigate, recipes]);
+  }, [navigate, recipes, stopLoader]);
 
   return (
     <div className="flex flex-col gap-5 max-w-md bg-gray-200 p-10 rounded m-auto">

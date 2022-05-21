@@ -65,7 +65,7 @@ const ChooseRecipe = () => {
       stopLoader();
       navigate("/get-cookin", { state: instructions });
     }
-  }, [navigate, instructions]);
+  }, [navigate, instructions, stopLoader]);
 
   if (location.state === null) {
     return (
