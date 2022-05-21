@@ -6,6 +6,7 @@ import Button from "../Button";
 import { useIngredientsContext } from "../../contexts/IngredientsContext";
 import { useNavigate } from "react-router-dom";
 import useLoader from "../../hooks/useLoader";
+import useToast from "../../hooks/useToast";
 
 const AddIngredients = () => {
   const [recipes, setRecipes] = useState(null);
@@ -13,6 +14,7 @@ const AddIngredients = () => {
   const { ingredients, removeAllIngredients } = useIngredientsContext();
 
   const [isLoading, startLoader, stopLoader] = useLoader();
+  const [isError, showError, hideError] = useToast();
 
   const navigate = useNavigate();
 
@@ -55,8 +57,10 @@ const AddIngredients = () => {
         setRecipes(suggestedRecipes);
       })
       .catch((err) => {
-        // TODO: alert user that there was an error
-        alert("Sorry!  Something went wrong.");
+        showError("Sorry!  Something went wrong.");
+        setTimeout(() => {
+          hideError();
+        }, 4000);
         stopLoader();
       });
   }
@@ -66,8 +70,10 @@ const AddIngredients = () => {
       startLoader();
       suggestRecipesBasedOnIngredients();
     } else {
-      // TODO: alert user that they need to add ingredients
-      alert("please add ingredients");
+      showError("Please add ingredients to generate a recipe.");
+      setTimeout(() => {
+        hideError();
+      }, 4000);
     }
   }
 
@@ -99,6 +105,7 @@ const AddIngredients = () => {
         />
       </div>
       {isLoading}
+      {isError}
     </div>
   );
 };

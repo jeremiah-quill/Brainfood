@@ -4,11 +4,13 @@ import Button from "../Button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useIngredientsContext } from "../../contexts/IngredientsContext";
 import useLoader from "../../hooks/useLoader";
+import useToast from "../../hooks/useToast";
 
 const ChooseRecipe = () => {
   const [instructions, setInstructions] = useState(null);
   const { chooseRecipeName } = useIngredientsContext();
   const [isLoading, startLoader, stopLoader] = useLoader();
+  const [isError, showError, hideError] = useToast();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,8 +52,10 @@ const ChooseRecipe = () => {
         setInstructions(AiInstructions);
       })
       .catch((err) => {
-        // TODO: alert user that there was an error
-        alert("Sorry!  Something went wrong.");
+        showError("Sorry!  Something went wrong.");
+        setTimeout(() => {
+          hideError();
+        }, 4000);
         stopLoader();
       });
   }
@@ -94,6 +98,7 @@ const ChooseRecipe = () => {
           ))}
         </ul>
         {isLoading}
+        {isError}
       </div>
     </>
   );
