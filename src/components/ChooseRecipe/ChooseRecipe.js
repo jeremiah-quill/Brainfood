@@ -45,11 +45,12 @@ const ChooseRecipe = () => {
       )
       .then((response) => {
         let answerData = response.data.choices[0];
-        let str = answerData.text;
-        let regex = /(?<=\. )(.*[a-zA-Z])/g;
-        const AiInstructions = str.match(regex);
+        console.log(response.data.choices[0]);
+        // let str = answerData.text;
+        // let regex = /(?<=\. )(.*[a-zA-Z])/g;
+        // const AiInstructions = str.match(regex);
         // * Set recipe in state, which triggers a useEffect that navigates us to the next page
-        setInstructions(AiInstructions);
+        // setInstructions(AiInstructions);
       })
       .catch((err) => {
         showError("Sorry!  Something went wrong.");
