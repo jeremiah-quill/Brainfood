@@ -49,13 +49,13 @@ const AddIngredients = () => {
         }
       )
       .then((response) => {
-        console.log(response);
-        // let answerData = response.data.choices[0];
-        // let str = answerData.text;
-        // let regex = /(?<=\. )(.*[a-zA-Z])/g;
-        // const suggestedRecipes = str.match(regex);
+        // console.log(response)
+        let answerData = response.data.choices[0];
+        let str = answerData.text;
+        let regex = /(?<=\. )(.*[a-zA-Z])/g;
+        const suggestedRecipes = str.match(regex);
         // * Set recipes in state, which triggers a useEffect that navigates us to the next page
-        // setRecipes(suggestedRecipes);
+        setRecipes(suggestedRecipes);
       })
       .catch((err) => {
         showError("Sorry!  Something went wrong.");
