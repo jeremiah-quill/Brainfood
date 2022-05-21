@@ -95,7 +95,7 @@ const AddIngredients = () => {
         <Button
           onClick={handleSearchRecipes}
           uniqueClassNames="bg-green-400 m-0 transition-all"
-          text={"Suggest Recipes"}
+          text={"Generate Recipes"}
         />
       </div>
       {isLoading}
