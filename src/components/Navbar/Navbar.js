@@ -1,12 +1,11 @@
 import React, { useState, useRef } from "react";
-import { FaLightbulb } from "react-icons/fa";
 import { BsShareFill, BsQuestionCircle } from "react-icons/bs";
 import SocialsBar from "./SocialsBar";
 import InfoModal from "../InfoModal";
 
 const Navbar = () => {
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
-  const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [isInfoOpen, setIsInfoOpen] = useState(true);
 
   function handleToggleInfo() {
     setIsInfoOpen((curr) => !curr);
@@ -25,8 +24,8 @@ const Navbar = () => {
   return (
     <div className="fixed z-20 top-0 flex items-center justify-between w-full p-4 max-w-5xl">
       <div className="flex items-center gap-3">
-        <FaLightbulb color="#D4AF37" size="1.5rem" />
-        <h1 className="text-green-600 font-thin text-3xl">AI Chef</h1>
+        <img src="./ai_chef_logo_square_white.png" style={{ width: "2rem" }} className="" />
+        <h1 className="text-green-600 font-bold text-3xl">AI Chef</h1>
       </div>
       <div className="flex gap-3">
         <button onClick={handleToggleInfo} className="hover:scale-110 transition-all">

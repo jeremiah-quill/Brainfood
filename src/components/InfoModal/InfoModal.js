@@ -15,8 +15,8 @@ const InfoModal = ({ closeModal }) => {
             <div className="my-5">
               <p>
                 Thanks to OpenAI's generosity for providing API access, this app is powered by
-                GPT-3: an AI capable of performing natural language tasks. We give the AI some
-                ingredients and it generates recipe suggestions. Once you choose one of the
+                GPT-3: an AI capable of performing natural language tasks. In this case we give the
+                AI some ingredients and it generates recipe suggestions. Once you choose one of the
                 suggested recipes, the AI will generate the recipe instructions from scratch.
               </p>
               <br></br>
