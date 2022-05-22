@@ -1,10 +1,8 @@
 import React from "react";
-// import { FaLightbulb } from "react-icons/fa";
 
 const Loader = () => {
   return (
     <div className="flex flex-col items-center justify-center fixed inset-0 z-5 bg-white">
-      {/* <FaLightbulb color="#D4AF37" size="5rem" /> */}
       <svg
         role="status"
         className="w-20 h-20 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-yellow-500"

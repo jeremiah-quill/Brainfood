@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 // give a ref to this hook and be able to run "onClickOutside" whenever there is a click event outside of that element
+// included a second ignoreRef which I've added to the "connect" button
 // works only when the ref element is rendered
 export function useClickOutside(ref, ignoreRef, callback) {
   useEffect(() => {
@@ -18,5 +19,5 @@ export function useClickOutside(ref, ignoreRef, callback) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref, callback]);
+  }, [ref, callback, ignoreRef]);
 }
