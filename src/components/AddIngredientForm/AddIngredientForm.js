@@ -12,7 +12,6 @@ const AddIngredientForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // addIngredient(ingredientValue);
     dispatchRecipe({ type: "ADD_INGREDIENT", name: ingredientValue });
     setIngredientValue("");
   }

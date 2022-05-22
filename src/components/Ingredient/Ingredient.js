@@ -3,10 +3,10 @@ import { useRecipeContext } from "../../contexts/RecipeContext";
 import { MdClose } from "react-icons/md";
 
 const Ingredient = ({ ingredient }) => {
-  const { removeIngredient } = useRecipeContext();
+  const { dispatchRecipe } = useRecipeContext();
 
   function handleRemoveIngredient() {
-    removeIngredient(ingredient.id);
+    dispatchRecipe({ type: "REMOVE_INGREDIENT", id: ingredient.id });
   }
 
   return (

@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import AddIngredients from "../AddIngredients";
 import ChooseRecipe from "../ChooseRecipe";
 import GetCookin from "../GetCookin";
-import About from "../About";
 import Navbar from "../Navbar";
 import { RecipeProvider } from "../../contexts/RecipeContext";
 
@@ -21,7 +20,6 @@ const CatchAsCatchCan = () => {
           <Route path="/" element={<AddIngredients />} />
           <Route path="/choose-recipe" element={<ChooseRecipe />} />
           <Route path="/get-cookin" element={<GetCookin />} />
-          <Route path="/about" element={<About />} />
         </Routes>
       </RecipeProvider>
     </>
