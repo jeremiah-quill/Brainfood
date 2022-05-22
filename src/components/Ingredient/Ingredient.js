@@ -1,9 +1,9 @@
 import React from "react";
-import { useIngredientsContext } from "../../contexts/IngredientsContext";
+import { useRecipeContext } from "../../contexts/RecipeContext";
 import { MdClose } from "react-icons/md";
 
 const Ingredient = ({ ingredient }) => {
-  const { removeIngredient } = useIngredientsContext();
+  const { removeIngredient } = useRecipeContext();
 
   function handleRemoveIngredient() {
     removeIngredient(ingredient.id);

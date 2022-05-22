@@ -3,15 +3,14 @@ import axios from "axios";
 import AddIngredientForm from "../AddIngredientForm";
 import IngredientContainer from "../IngredientContainer";
 import Button from "../Button";
-import { useIngredientsContext } from "../../contexts/IngredientsContext";
+import { useRecipeContext } from "../../contexts/RecipeContext";
 import { useNavigate } from "react-router-dom";
 import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
 
 const AddIngredients = () => {
   const [recipes, setRecipes] = useState(null);
-
-  const { ingredients, removeAllIngredients } = useIngredientsContext();
+  const { ingredients, removeAllIngredients } = useRecipeContext();
 
   const [isLoading, startLoader, stopLoader] = useLoader();
   const [isError, showError, hideError] = useToast();
@@ -49,10 +48,8 @@ const AddIngredients = () => {
         }
       )
       .then((response) => {
-        // console.log(response)
         let answerData = response.data.choices[0];
         let str = answerData.text;
-        // let regex = /(?<=\. )(.*[a-zA-Z])/g;
         let regex = /([A-z].+)/g;
 
         const suggestedRecipes = str.match(regex);
@@ -84,6 +81,7 @@ const AddIngredients = () => {
     removeAllIngredients();
   }
 
+  // * When recipes local state changes and isn't null, navigate to choose recipe page and send 3 suggested recipes through location state
   useEffect(() => {
     if (recipes !== null) {
       stopLoader();

@@ -1,13 +1,11 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useIngredientsContext } from "../../contexts/IngredientsContext";
+import { Link } from "react-router-dom";
+import { useRecipeContext } from "../../contexts/RecipeContext";
 
 const GetCookin = () => {
-  const location = useLocation();
+  const { ingredients, chosenRecipeName, instructions } = useRecipeContext();
 
-  const { ingredients, chosenRecipeName } = useIngredientsContext();
-
-  if (location.state === null) {
+  if (instructions === null) {
     return (
       <h1>
         Hey, you're not supposed to be here yet! Click{" "}
@@ -30,7 +28,7 @@ const GetCookin = () => {
           ))}
         </ul>
         <ol className="list-decimal list-inside">
-          {location.state.map((step, idx) => (
+          {instructions.map((step, idx) => (
             <li key={idx}>{step}</li>
           ))}
         </ol>

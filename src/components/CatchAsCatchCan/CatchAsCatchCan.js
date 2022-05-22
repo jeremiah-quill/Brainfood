@@ -5,7 +5,7 @@ import ChooseRecipe from "../ChooseRecipe";
 import GetCookin from "../GetCookin";
 import About from "../About";
 import Navbar from "../Navbar";
-import { IngredientsProvider } from "../../contexts/IngredientsContext";
+import { RecipeProvider } from "../../contexts/RecipeContext";
 
 const CatchAsCatchCan = () => {
   return (
@@ -16,14 +16,14 @@ const CatchAsCatchCan = () => {
         src="./ai_chef_logo_square_white.png"
         className="m-auto w-40 relative bottom-20 z-10"
       />
-      <IngredientsProvider>
+      <RecipeProvider>
         <Routes>
           <Route path="/" element={<AddIngredients />} />
           <Route path="/choose-recipe" element={<ChooseRecipe />} />
           <Route path="/get-cookin" element={<GetCookin />} />
           <Route path="/about" element={<About />} />
         </Routes>
-      </IngredientsProvider>
+      </RecipeProvider>
     </>
   );
 };

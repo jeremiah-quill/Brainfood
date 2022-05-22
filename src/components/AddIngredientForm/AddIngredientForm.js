@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useIngredientsContext } from '../../contexts/IngredientsContext';
+import React, { useState } from "react";
+import { useRecipeContext } from "../../contexts/RecipeContext";
 
 const AddIngredientForm = () => {
-  const [ingredientValue, setIngredientValue] = useState('');
+  const [ingredientValue, setIngredientValue] = useState("");
 
-  const { addIngredient } = useIngredientsContext();
+  const { addIngredient } = useRecipeContext();
 
   function handleValueChange(e) {
     setIngredientValue(e.target.value);
@@ -13,7 +13,7 @@ const AddIngredientForm = () => {
   function handleSubmit(e) {
     e.preventDefault();
     addIngredient(ingredientValue);
-    setIngredientValue('');
+    setIngredientValue("");
   }
 
   return (

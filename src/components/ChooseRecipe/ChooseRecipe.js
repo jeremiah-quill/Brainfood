@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import Button from "../Button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useIngredientsContext } from "../../contexts/IngredientsContext";
+import { useRecipeContext } from "../../contexts/RecipeContext";
 import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
 
 const ChooseRecipe = () => {
-  const [instructions, setInstructions] = useState(null);
-  const { chooseRecipeName } = useIngredientsContext();
+  const { chooseRecipeName, instructions, addInstructions } = useRecipeContext();
   const [isLoading, startLoader, stopLoader] = useLoader();
   const [isError, showError, hideError] = useToast();
 
@@ -45,13 +44,11 @@ const ChooseRecipe = () => {
       )
       .then((response) => {
         let answerData = response.data.choices[0];
-        // console.log(response.data.choices[0]);
         let str = answerData.text;
-        // let regex = /(?<=\. )(.*[a-zA-Z])/g;
         let regex = /([A-z].+)/g;
         const AiInstructions = str.match(regex);
         // * Set recipe in state, which triggers a useEffect that navigates us to the next page
-        setInstructions(AiInstructions);
+        addInstructions(AiInstructions);
       })
       .catch((err) => {
         showError("Sorry!  Something went wrong.");

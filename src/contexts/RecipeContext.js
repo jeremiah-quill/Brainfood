@@ -1,13 +1,14 @@
 import React, { createContext, useState, useContext } from "react";
 import uuid from "react-uuid";
 
-export const IngredientsContext = createContext();
+export const RecipeContext = createContext();
 
-export const useIngredientsContext = () => useContext(IngredientsContext);
+export const useRecipeContext = () => useContext(RecipeContext);
 
-export const IngredientsProvider = ({ children }) => {
+export const RecipeProvider = ({ children }) => {
   const [ingredients, setIngredients] = useState([]);
   const [chosenRecipeName, setChosenRecipeName] = useState(null);
+  const [instructions, setInstructions] = useState(null);
 
   function addIngredient(newIngredient) {
     const ingredient = {
@@ -30,8 +31,12 @@ export const IngredientsProvider = ({ children }) => {
     setChosenRecipeName(name);
   }
 
+  function addInstructions(recipeInstructions) {
+    setInstructions(recipeInstructions);
+  }
+
   return (
-    <IngredientsContext.Provider
+    <RecipeContext.Provider
       value={{
         ingredients,
         addIngredient,
@@ -39,8 +44,10 @@ export const IngredientsProvider = ({ children }) => {
         removeAllIngredients,
         chooseRecipeName,
         chosenRecipeName,
+        addInstructions,
+        instructions,
       }}>
       {children}
-    </IngredientsContext.Provider>
+    </RecipeContext.Provider>
   );
 };
