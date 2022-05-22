@@ -24,7 +24,7 @@ const AddIngredients = () => {
       .map((ingredient) => `${ingredient.name}\n`)
       .reduce((string, el) => string + el, "");
 
-    const promptTemplate = `List three recipe names that each includes all of the following ingredients:\n\nIngredients:\n${formattedIngredients}\nRecipes: `;
+    const promptTemplate = `Write three recipe names based on these ingredients:\n\nIngredients:\n${formattedIngredients}\nRecipe names: `;
 
     const data = {
       prompt: promptTemplate,
