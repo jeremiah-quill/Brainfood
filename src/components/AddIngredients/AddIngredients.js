@@ -52,7 +52,9 @@ const AddIngredients = () => {
         // console.log(response)
         let answerData = response.data.choices[0];
         let str = answerData.text;
-        let regex = /(?<=\. )(.*[a-zA-Z])/g;
+        // let regex = /(?<=\. )(.*[a-zA-Z])/g;
+        let regex = /([A-z].+)/g;
+
         const suggestedRecipes = str.match(regex);
         // * Set recipes in state, which triggers a useEffect that navigates us to the next page
         setRecipes(suggestedRecipes);
