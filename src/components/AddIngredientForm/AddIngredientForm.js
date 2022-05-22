@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useRecipeContext } from "../../contexts/RecipeContext";
 
 const AddIngredientForm = () => {
+  // * controlled input
   const [ingredientValue, setIngredientValue] = useState("");
-
-  const { dispatchRecipe } = useRecipeContext();
-
   function handleValueChange(e) {
     setIngredientValue(e.target.value);
   }
 
+  // * add ingredient to state on submit of new ingredient
+  const { dispatchRecipe } = useRecipeContext();
   function handleSubmit(e) {
     e.preventDefault();
     dispatchRecipe({ type: "ADD_INGREDIENT", name: ingredientValue });

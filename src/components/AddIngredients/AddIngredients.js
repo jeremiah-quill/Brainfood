@@ -1,71 +1,57 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import AddIngredientForm from "../AddIngredientForm";
 import IngredientContainer from "../IngredientContainer";
 import Button from "../Button";
-import { useRecipeContext } from "../../contexts/RecipeContext";
-import { useNavigate } from "react-router-dom";
 import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
+import { useRecipeContext } from "../../contexts/RecipeContext";
+import { useNavigate } from "react-router-dom";
+import API from "../../utils/API";
 
 const AddIngredients = () => {
-  // * Local recipes state to hold recipes once AI generates.  These recipes trigger a useEffect which navigates us to the next page, where we send through the recipes as location.state
-  const [recipes, setRecipes] = useState(null);
-
-  const { recipe, dispatchRecipe } = useRecipeContext();
   const [isLoading, startLoader, stopLoader] = useLoader();
-
-  // * piece of boolean state, function that takes in a message and displays a toast, function that hides toast
   const [isError, showError, hideError] = useToast();
-
   const navigate = useNavigate();
+  const { recipe, dispatchRecipe } = useRecipeContext();
 
+  // * 3 suggested recipes.  when they are set, we navigate to the next page
+  const [recipes, setRecipes] = useState(null);
+  useEffect(() => {
+    if (recipes !== null) {
+      stopLoader();
+      navigate("/choose-recipe", { state: recipes });
+    }
+  }, [navigate, recipes, stopLoader]);
+
+  // * call API with ingredients, and get back 3 suggested recipes in return
   async function suggestRecipesBasedOnIngredients() {
-    //* transform ingredient names into a format that we can inject into the openai prompt
+    // transform ingredient names into a format that we can inject into the openai prompt
     const formattedIngredients = recipe.ingredients
       .map((ingredient) => `${ingredient.name}\n`)
       .reduce((string, el) => string + el, "");
 
     const promptTemplate = `Write three recipe names based on these ingredients:\n\nIngredients:\n${formattedIngredients}\nRecipe names: `;
 
-    const data = {
-      prompt: promptTemplate,
-      temperature: 0.3,
-      max_tokens: 250,
-      top_p: 1.0,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.REACT_APP_OPENAI_SECRET}`,
-    };
-
-    axios
-      .post(
-        "https://api.openai.com/v1/engines/text-davinci-002/completions",
-        JSON.stringify(data),
-        {
-          headers,
-        }
-      )
-      .then((response) => {
+    // * API call
+    try {
+      const response = await API({
+        type: "SEARCH_FOR_RECIPES",
+        promptTemplate: promptTemplate,
+      });
+      if (response.status === 200) {
         let answerData = response.data.choices[0];
         let str = answerData.text;
         let regex = /([A-z].+)/g;
-
         const suggestedRecipes = str.match(regex);
-        // * Set recipes in state, which triggers a useEffect that navigates us to the next page
         setRecipes(suggestedRecipes);
-      })
-      .catch((err) => {
-        showError("Sorry!  Something went wrong.");
-        setTimeout(() => {
-          hideError();
-        }, 4000);
-        stopLoader();
-      });
+      }
+    } catch (err) {
+      showError("Sorry!  Something went wrong.");
+      setTimeout(() => {
+        hideError();
+      }, 4000);
+      stopLoader();
+    }
   }
 
   function handleSearchRecipes() {
@@ -83,14 +69,6 @@ const AddIngredients = () => {
   function handleClearIngredients() {
     dispatchRecipe({ type: "REMOVE_ALL_INGREDIENTS" });
   }
-
-  // * When recipes local state changes and isn't null, navigate to choose recipe page and send 3 suggested recipes through location state
-  useEffect(() => {
-    if (recipes !== null) {
-      stopLoader();
-      navigate("/choose-recipe", { state: recipes });
-    }
-  }, [navigate, recipes, stopLoader]);
 
   return (
     <div className="flex flex-col gap-5 max-w-md bg-gray-200 p-10 rounded m-auto">

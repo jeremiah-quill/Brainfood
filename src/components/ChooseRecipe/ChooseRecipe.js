@@ -1,62 +1,45 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import Button from "../Button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useRecipeContext } from "../../contexts/RecipeContext";
 import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
+import API from "../../utils/API";
 
 const ChooseRecipe = () => {
   const { recipe, dispatchRecipe } = useRecipeContext();
   const [isLoading, startLoader, stopLoader] = useLoader();
   const [isError, showError, hideError] = useToast();
-
   const navigate = useNavigate();
   const location = useLocation();
 
-  function handleChooseRecipe(recipeName) {
+  async function handleChooseRecipe(recipeName) {
     dispatchRecipe({ type: "CHOOSE_RECIPE_NAME", name: recipeName });
+
     startLoader();
 
     const promptTemplate = `Write the instructions for the recipe for ${recipeName}:\n\nInstructions:`;
 
-    const data = {
-      prompt: promptTemplate,
-      temperature: 0.3,
-      max_tokens: 250,
-      top_p: 1.0,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.REACT_APP_OPENAI_SECRET}`,
-    };
-
-    axios
-      .post(
-        "https://api.openai.com/v1/engines/text-davinci-002/completions",
-        JSON.stringify(data),
-        {
-          headers,
-        }
-      )
-      .then((response) => {
+    // * API call
+    try {
+      const response = await API({
+        type: "GENERATE_INSTRUCTIONS",
+        promptTemplate: promptTemplate,
+      });
+      if (response.status === 200) {
         let answerData = response.data.choices[0];
         let str = answerData.text;
         let regex = /([A-z].+)/g;
         const AiInstructions = str.match(regex);
-        // * Set recipe in state, which triggers a useEffect that navigates us to the next page
         dispatchRecipe({ type: "ADD_INSTRUCTIONS", instructions: AiInstructions });
-      })
-      .catch((err) => {
-        showError("Sorry!  Something went wrong.");
-        setTimeout(() => {
-          hideError();
-        }, 4000);
-        stopLoader();
-      });
+      }
+    } catch (err) {
+      showError("Sorry!  Something went wrong.");
+      setTimeout(() => {
+        hideError();
+      }, 4000);
+      stopLoader();
+    }
   }
 
   useEffect(() => {
