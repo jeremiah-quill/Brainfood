@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useRecipeContext } from "../../contexts/RecipeContext";
 
 const GetCookin = () => {
-  const { recipe, chosenRecipeName } = useRecipeContext();
+  const { recipe } = useRecipeContext();
 
   if (recipe.instructions === null) {
     return (
@@ -20,7 +20,7 @@ const GetCookin = () => {
   return (
     <>
       <div className="bg-gray-200 p-10 rounded max-w-xl m-auto">
-        <h2 className="text-4xl mb-10 text-center">{chosenRecipeName}</h2>
+        <h2 className="text-4xl mb-10 text-center">{recipe.name}</h2>
         <h3 className="text-xl">Your Ingredients</h3>
         <ul className="mb-10">
           {recipe.ingredients.map((ingredient) => (

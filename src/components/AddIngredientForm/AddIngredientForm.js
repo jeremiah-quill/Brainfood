@@ -4,7 +4,7 @@ import { useRecipeContext } from "../../contexts/RecipeContext";
 const AddIngredientForm = () => {
   const [ingredientValue, setIngredientValue] = useState("");
 
-  const { addIngredient } = useRecipeContext();
+  const { dispatchRecipe } = useRecipeContext();
 
   function handleValueChange(e) {
     setIngredientValue(e.target.value);
@@ -12,7 +12,8 @@ const AddIngredientForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    addIngredient(ingredientValue);
+    // addIngredient(ingredientValue);
+    dispatchRecipe({ type: "ADD_INGREDIENT", name: ingredientValue });
     setIngredientValue("");
   }
 

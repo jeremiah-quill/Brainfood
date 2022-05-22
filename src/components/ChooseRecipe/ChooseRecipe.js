@@ -7,7 +7,7 @@ import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
 
 const ChooseRecipe = () => {
-  const { chooseRecipeName, recipe, addInstructions } = useRecipeContext();
+  const { recipe, dispatchRecipe } = useRecipeContext();
   const [isLoading, startLoader, stopLoader] = useLoader();
   const [isError, showError, hideError] = useToast();
 
@@ -15,7 +15,7 @@ const ChooseRecipe = () => {
   const location = useLocation();
 
   function handleChooseRecipe(recipeName) {
-    chooseRecipeName(recipeName);
+    dispatchRecipe({ type: "CHOOSE_RECIPE_NAME", name: recipeName });
     startLoader();
 
     const promptTemplate = `Write the instructions for the recipe for ${recipeName}:\n\nInstructions:`;
@@ -48,7 +48,7 @@ const ChooseRecipe = () => {
         let regex = /([A-z].+)/g;
         const AiInstructions = str.match(regex);
         // * Set recipe in state, which triggers a useEffect that navigates us to the next page
-        addInstructions(AiInstructions);
+        dispatchRecipe({ type: "ADD_INSTRUCTIONS", instructions: AiInstructions });
       })
       .catch((err) => {
         showError("Sorry!  Something went wrong.");

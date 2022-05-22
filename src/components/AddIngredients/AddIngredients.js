@@ -9,10 +9,13 @@ import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
 
 const AddIngredients = () => {
+  // * Local recipes state to hold recipes once AI generates.  These recipes trigger a useEffect which navigates us to the next page, where we send through the recipes as location.state
   const [recipes, setRecipes] = useState(null);
-  const { recipe, removeAllIngredients } = useRecipeContext();
 
+  const { recipe, dispatchRecipe } = useRecipeContext();
   const [isLoading, startLoader, stopLoader] = useLoader();
+
+  // * piece of boolean state, function that takes in a message and displays a toast, function that hides toast
   const [isError, showError, hideError] = useToast();
 
   const navigate = useNavigate();
@@ -78,14 +81,13 @@ const AddIngredients = () => {
   }
 
   function handleClearIngredients() {
-    removeAllIngredients();
+    dispatchRecipe({ type: "REMOVE_ALL_INGREDIENTS" });
   }
 
   // * When recipes local state changes and isn't null, navigate to choose recipe page and send 3 suggested recipes through location state
   useEffect(() => {
     if (recipes !== null) {
       stopLoader();
-      console.log("worked");
       navigate("/choose-recipe", { state: recipes });
     }
   }, [navigate, recipes, stopLoader]);
