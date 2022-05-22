@@ -25,10 +25,7 @@ const AddIngredients = () => {
 
     // * API call
     try {
-      const response = await API({
-        type: "SEARCH_FOR_RECIPES",
-        promptTemplate: promptTemplate,
-      });
+      const response = await API.searchForRecipes(promptTemplate);
       if (response.status === 200) {
         let answerData = response.data.choices[0];
         let str = answerData.text;

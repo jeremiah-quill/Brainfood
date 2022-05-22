@@ -22,10 +22,7 @@ const ChooseRecipe = () => {
 
     // * API call
     try {
-      const response = await API({
-        type: "GENERATE_INSTRUCTIONS",
-        promptTemplate: promptTemplate,
-      });
+      const response = await API.generateInstructions(promptTemplate);
       if (response.status === 200) {
         let answerData = response.data.choices[0];
         let str = answerData.text;
