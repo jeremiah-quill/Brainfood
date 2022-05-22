@@ -23,7 +23,7 @@ const Navbar = () => {
   const ref = useRef();
 
   return (
-    <div className="absolute top-0 flex items-center justify-between w-full p-4 inset-x-0 max-w-5xl m-auto z-20">
+    <nav className="absolute top-0 flex items-center justify-between w-full p-4 inset-x-0 max-w-5xl m-auto z-20">
       <Link to="/" className="flex items-center gap-3">
         <img src="./ai_chef_logo_square_white.png" style={{ width: "2rem" }} alt="logo" />
         <h1 className="text-green-600 font-bold text-3xl">Brainfood</h1>
@@ -38,7 +38,7 @@ const Navbar = () => {
         {isSocialsOpen ? <SocialsBar ignoreRef={ref} closeSocials={handleCloseSocials} /> : null}
         {isInfoOpen ? <InfoModal closeModal={handleToggleInfo} /> : null}
       </div>
-    </div>
+    </nav>
   );
 };
 

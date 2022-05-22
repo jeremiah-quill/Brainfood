@@ -6,9 +6,7 @@ export const RecipeContext = createContext();
 export const useRecipeContext = () => useContext(RecipeContext);
 
 export const RecipeProvider = ({ children }) => {
-  const [ingredients, setIngredients] = useState([]);
-  const [chosenRecipeName, setChosenRecipeName] = useState(null);
-  const [instructions, setInstructions] = useState(null);
+  const [recipe, setRecipe] = useState({ name: "", ingredients: [], instructions: [] });
 
   function addIngredient(newIngredient) {
     const ingredient = {
@@ -16,36 +14,37 @@ export const RecipeProvider = ({ children }) => {
       name: newIngredient,
     };
 
-    setIngredients((curr) => [...curr, ingredient]);
+    setRecipe((curr) => ({ ...curr, ingredients: [...curr.ingredients, ingredient] }));
   }
 
   function removeIngredient(id) {
-    setIngredients((curr) => curr.filter((ingredient) => ingredient.id !== id));
+    setRecipe((curr) => {
+      const updatedIngredients = curr.ingredients.filter((ingredient) => ingredient.id !== id);
+      return { ...curr, ingredients: updatedIngredients };
+    });
   }
 
-  function removeAllIngredients(id) {
-    setIngredients([]);
+  function removeAllIngredients() {
+    setRecipe((curr) => ({ ...curr, ingredients: [] }));
   }
 
   function chooseRecipeName(name) {
-    setChosenRecipeName(name);
+    setRecipe((curr) => ({ ...curr, name: name }));
   }
 
   function addInstructions(recipeInstructions) {
-    setInstructions(recipeInstructions);
+    setRecipe((curr) => ({ ...curr, instructions: recipeInstructions }));
   }
 
   return (
     <RecipeContext.Provider
       value={{
-        ingredients,
+        recipe,
         addIngredient,
         removeIngredient,
         removeAllIngredients,
         chooseRecipeName,
-        chosenRecipeName,
         addInstructions,
-        instructions,
       }}>
       {children}
     </RecipeContext.Provider>

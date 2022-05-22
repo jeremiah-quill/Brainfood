@@ -10,7 +10,7 @@ import useToast from "../../hooks/useToast";
 
 const AddIngredients = () => {
   const [recipes, setRecipes] = useState(null);
-  const { ingredients, removeAllIngredients } = useRecipeContext();
+  const { recipe, removeAllIngredients } = useRecipeContext();
 
   const [isLoading, startLoader, stopLoader] = useLoader();
   const [isError, showError, hideError] = useToast();
@@ -19,7 +19,7 @@ const AddIngredients = () => {
 
   async function suggestRecipesBasedOnIngredients() {
     //* transform ingredient names into a format that we can inject into the openai prompt
-    const formattedIngredients = ingredients
+    const formattedIngredients = recipe.ingredients
       .map((ingredient) => `${ingredient.name}\n`)
       .reduce((string, el) => string + el, "");
 
@@ -66,7 +66,7 @@ const AddIngredients = () => {
   }
 
   function handleSearchRecipes() {
-    if (ingredients.length > 0) {
+    if (recipe.ingredients.length > 0) {
       startLoader();
       suggestRecipesBasedOnIngredients();
     } else {
@@ -85,6 +85,7 @@ const AddIngredients = () => {
   useEffect(() => {
     if (recipes !== null) {
       stopLoader();
+      console.log("worked");
       navigate("/choose-recipe", { state: recipes });
     }
   }, [navigate, recipes, stopLoader]);

@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { useRecipeContext } from "../../contexts/RecipeContext";
 
 const GetCookin = () => {
-  const { ingredients, chosenRecipeName, instructions } = useRecipeContext();
+  const { recipe, chosenRecipeName } = useRecipeContext();
 
-  if (instructions === null) {
+  if (recipe.instructions === null) {
     return (
       <h1>
         Hey, you're not supposed to be here yet! Click{" "}
@@ -23,12 +23,12 @@ const GetCookin = () => {
         <h2 className="text-4xl mb-10 text-center">{chosenRecipeName}</h2>
         <h3 className="text-xl">Your Ingredients</h3>
         <ul className="mb-10">
-          {ingredients.map((ingredient) => (
+          {recipe.ingredients.map((ingredient) => (
             <li key={ingredient.id}>{ingredient.name}</li>
           ))}
         </ul>
         <ol className="list-decimal list-inside">
-          {instructions.map((step, idx) => (
+          {recipe.instructions.map((step, idx) => (
             <li key={idx}>{step}</li>
           ))}
         </ol>

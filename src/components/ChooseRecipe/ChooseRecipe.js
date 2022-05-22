@@ -7,7 +7,7 @@ import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
 
 const ChooseRecipe = () => {
-  const { chooseRecipeName, instructions, addInstructions } = useRecipeContext();
+  const { chooseRecipeName, recipe, addInstructions } = useRecipeContext();
   const [isLoading, startLoader, stopLoader] = useLoader();
   const [isError, showError, hideError] = useToast();
 
@@ -60,11 +60,11 @@ const ChooseRecipe = () => {
   }
 
   useEffect(() => {
-    if (instructions !== null) {
+    if (recipe.instructions.length > 0) {
       stopLoader();
-      navigate("/get-cookin", { state: instructions });
+      navigate("/get-cookin");
     }
-  }, [navigate, instructions, stopLoader]);
+  }, [navigate, recipe.instructions, stopLoader]);
 
   if (location.state === null) {
     return (
