@@ -14,11 +14,14 @@ const InfoModal = ({ closeModal }) => {
             </div>
             <div className="my-5">
               <p>
-                Thanks to OpenAI's generosity for providing API access, this app is powered by
-                GPT-3: an Artificial Intelligence capable of performing natural language tasks. In
-                this case we give the AI some ingredients and it generates recipe suggestions. Once
-                you choose one of the suggested recipes, the AI will generate your recipe
-                instructions from scratch.
+                Thanks to OpenAI's generosity for providing{" "}
+                <a href="https://openai.com/api/" rel="noreferrer" target="_blank">
+                  API access
+                </a>
+                , this app is powered by GPT-3: an Artificial Intelligence capable of performing
+                natural language tasks. In this case we give the AI some ingredients and it
+                generates recipe suggestions. Once you choose one of the suggested recipes, the AI
+                will generate your recipe instructions from scratch.
               </p>
               <br></br>
               <div>

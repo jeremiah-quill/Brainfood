@@ -19,6 +19,8 @@ export default function recipeReducer(state, action) {
       return { ...state, name: action.name };
     case "ADD_INSTRUCTIONS":
       return { ...state, instructions: action.instructions };
+    case "CLEAR_RECIPE":
+      return { name: "", ingredients: [], instructions: [] };
     default:
       return state;
   }

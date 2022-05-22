@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import AddIngredientForm from "../AddIngredientForm";
 import IngredientContainer from "../IngredientContainer";
 import Button from "../Button";
@@ -13,15 +13,6 @@ const AddIngredients = () => {
   const [isError, showError, hideError] = useToast();
   const navigate = useNavigate();
   const { recipe, dispatchRecipe } = useRecipeContext();
-
-  // * 3 suggested recipes.  when they are set, we navigate to the next page
-  const [recipes, setRecipes] = useState(null);
-  useEffect(() => {
-    if (recipes !== null) {
-      stopLoader();
-      navigate("/choose-recipe", { state: recipes });
-    }
-  }, [navigate, recipes, stopLoader]);
 
   // * call API with ingredients, and get back 3 suggested recipes in return
   async function suggestRecipesBasedOnIngredients() {
@@ -43,7 +34,8 @@ const AddIngredients = () => {
         let str = answerData.text;
         let regex = /([A-z].+)/g;
         const suggestedRecipes = str.match(regex);
-        setRecipes(suggestedRecipes);
+        stopLoader();
+        navigate("/choose-recipe", { state: suggestedRecipes });
       }
     } catch (err) {
       showError("Sorry!  Something went wrong.");
@@ -69,6 +61,14 @@ const AddIngredients = () => {
   function handleClearIngredients() {
     dispatchRecipe({ type: "REMOVE_ALL_INGREDIENTS" });
   }
+
+  const memoizedDispatch = useCallback(() => {
+    return dispatchRecipe({ type: "CLEAR_RECIPE" });
+  }, [dispatchRecipe]);
+
+  useEffect(() => {
+    memoizedDispatch();
+  }, [memoizedDispatch]);
 
   return (
     <div className="flex flex-col gap-5 max-w-md bg-gray-200 p-10 rounded m-auto">
