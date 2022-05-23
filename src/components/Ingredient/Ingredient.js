@@ -9,8 +9,6 @@ const Ingredient = ({ ingredient }) => {
     dispatchRecipe({ type: "REMOVE_INGREDIENT", id: ingredient.id });
   }
 
-  console.log(ingredient.name);
-
   return (
     <li className="py-1 px-2 rounded flex items-center gap-2 bg-gray-500 text-white">
       <div>

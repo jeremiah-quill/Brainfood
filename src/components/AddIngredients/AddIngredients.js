@@ -61,13 +61,13 @@ const AddIngredients = () => {
     dispatchRecipe({ type: "REMOVE_ALL_INGREDIENTS" });
   }
 
-  const memoizedDispatch = useCallback(() => {
+  const clearRecipe = useCallback(() => {
     return dispatchRecipe({ type: "CLEAR_RECIPE" });
   }, [dispatchRecipe]);
 
   useEffect(() => {
-    memoizedDispatch();
-  }, [memoizedDispatch]);
+    clearRecipe();
+  }, [clearRecipe]);
 
   return (
     <div className="flex flex-col gap-5 max-w-md bg-gray-200 p-10 rounded m-auto">

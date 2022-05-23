@@ -10,4 +10,4 @@ const Button = ({ onClick, text, uniqueClassNames = "" }) => {
   );
 };
 
-export default Button;
+export default React.memo(Button);
