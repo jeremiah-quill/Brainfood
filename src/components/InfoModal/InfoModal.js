@@ -13,9 +13,13 @@ const InfoModal = ({ closeModal }) => {
               <h3 className="text-lg">AI powered recipe generator</h3>
             </div>
             <div className="my-5">
-              <p>
+              <p className="text-green-600 font-bold">
                 Thanks to OpenAI's generosity for providing{" "}
-                <a href="https://openai.com/api/" rel="noreferrer" target="_blank">
+                <a
+                  href="https://openai.com/api/"
+                  rel="noreferrer"
+                  target="_blank"
+                  className="underline text-green-600">
                   API access
                 </a>
                 , this app is powered by GPT-3: an Artificial Intelligence capable of performing
