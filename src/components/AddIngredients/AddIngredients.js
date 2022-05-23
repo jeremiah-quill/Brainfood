@@ -1,10 +1,11 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import AddIngredientForm from "../AddIngredientForm";
 import IngredientContainer from "../IngredientContainer";
 import Button from "../Button";
 import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
-import { useRecipeContext } from "../../contexts/RecipeContext";
+import { RecipeContext } from "../../contexts/RecipeContext";
+import { DispatchRecipeContext } from "../../contexts/RecipeContext";
 import { useNavigate } from "react-router-dom";
 import API from "../../utils/API";
 
@@ -12,7 +13,8 @@ const AddIngredients = () => {
   const [isLoading, startLoader, stopLoader] = useLoader();
   const [isError, showError, hideError] = useToast();
   const navigate = useNavigate();
-  const { recipe, dispatchRecipe } = useRecipeContext();
+  const recipe = useContext(RecipeContext);
+  const dispatchRecipe = useContext(DispatchRecipeContext);
 
   // * call API with ingredients, and get back 3 suggested recipes in return
   async function suggestRecipesBasedOnIngredients() {

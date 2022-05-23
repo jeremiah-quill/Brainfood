@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import recipeReducer from "../reducers/recipeReducer";
 
 export const RecipeContext = createContext();
+export const DispatchRecipeContext = createContext();
 
-export const useRecipeContext = () => useContext(RecipeContext);
+// export const useRecipeContext = () => useContext(RecipeContext);
 
 export const RecipeProvider = ({ children }) => {
   const [recipe, dispatchRecipe] = useReducer(recipeReducer, {
@@ -12,12 +13,10 @@ export const RecipeProvider = ({ children }) => {
     instructions: [],
   });
   return (
-    <RecipeContext.Provider
-      value={{
-        recipe,
-        dispatchRecipe,
-      }}>
-      {children}
+    <RecipeContext.Provider value={recipe}>
+      <DispatchRecipeContext.Provider value={dispatchRecipe}>
+        {children}
+      </DispatchRecipeContext.Provider>
     </RecipeContext.Provider>
   );
 };

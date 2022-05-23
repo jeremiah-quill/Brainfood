@@ -1,13 +1,15 @@
-import React from "react";
-import { useRecipeContext } from "../../contexts/RecipeContext";
+import React, { useContext } from "react";
+import { DispatchRecipeContext } from "../../contexts/RecipeContext";
 import { MdClose } from "react-icons/md";
 
 const Ingredient = ({ ingredient }) => {
-  const { dispatchRecipe } = useRecipeContext();
+  const dispatchRecipe = useContext(DispatchRecipeContext);
 
   function handleRemoveIngredient() {
     dispatchRecipe({ type: "REMOVE_INGREDIENT", id: ingredient.id });
   }
+
+  console.log(ingredient.name);
 
   return (
     <li className="py-1 px-2 rounded flex items-center gap-2 bg-gray-500 text-white">
@@ -23,4 +25,4 @@ const Ingredient = ({ ingredient }) => {
   );
 };
 
-export default Ingredient;
+export default React.memo(Ingredient);

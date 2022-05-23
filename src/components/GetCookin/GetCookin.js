@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { useRecipeContext } from "../../contexts/RecipeContext";
+import { RecipeContext } from "../../contexts/RecipeContext";
 
 const GetCookin = () => {
-  const { recipe } = useRecipeContext();
+  const recipe = useContext(RecipeContext);
 
   if (recipe.instructions === null) {
     return (

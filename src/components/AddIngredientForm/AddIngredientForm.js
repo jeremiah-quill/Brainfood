@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useRecipeContext } from "../../contexts/RecipeContext";
+import React, { useState, useContext } from "react";
+import { DispatchRecipeContext } from "../../contexts/RecipeContext";
 
 const AddIngredientForm = () => {
   // * controlled input
@@ -9,7 +9,7 @@ const AddIngredientForm = () => {
   }
 
   // * add ingredient to state on submit of new ingredient
-  const { dispatchRecipe } = useRecipeContext();
+  const dispatchRecipe = useContext(DispatchRecipeContext);
   function handleSubmit(e) {
     e.preventDefault();
     dispatchRecipe({ type: "ADD_INGREDIENT", name: ingredientValue });
@@ -29,4 +29,4 @@ const AddIngredientForm = () => {
   );
 };
 
-export default AddIngredientForm;
+export default React.memo(AddIngredientForm);

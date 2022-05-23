@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "../Button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useRecipeContext } from "../../contexts/RecipeContext";
+import { DispatchRecipeContext, RecipeContext } from "../../contexts/RecipeContext";
 import useLoader from "../../hooks/useLoader";
 import useToast from "../../hooks/useToast";
 import API from "../../utils/API";
 
 const ChooseRecipe = () => {
-  const { recipe, dispatchRecipe } = useRecipeContext();
+  const recipe = useContext(RecipeContext);
+  const dispatchRecipe = useContext(DispatchRecipeContext);
   const [isLoading, startLoader, stopLoader] = useLoader();
   const [isError, showError, hideError] = useToast();
   const navigate = useNavigate();
